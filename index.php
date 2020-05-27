@@ -63,18 +63,18 @@
 
 <div class="rightsidebar item">
 
-    <h2>Autor</h2>
+                    <h2>Insert Autor:</h2>
                     <form action="autor.php" method="POST">
                         <input type="text" name="imie">
                         <input type="text" name="nazwisko"><br>
                         <input type="submit" value="Dodaj">
                     </form>
-                    <h2>Tytuł</h2>
+                    <h2>Insert Tytuł:</h2>
                     <form action="tytul.php" method="POST">
                         <input type="text" name="tytul"><br>
                         <input type="submit" value="Dodaj">
                     </form>
-                    <h2>Wybierz autora i Tytuł:</h2>
+                    <h2>Autor i Tytuł:</h2>
                     <?php
                         $servername = "localhost";
                         $username = "root";
@@ -84,6 +84,7 @@
                         $conn = new mysqli($servername, $username, $password, $dbname);
 
                         $result2 = $conn->query("SELECT * FROM tytuly");
+                        $result4 = $conn->query("SELECT * FROM tytuly");
 
                         echo("<form action='books.php' method='POST'>");
                         echo("<select name='tytuly'>");
@@ -93,7 +94,7 @@
                         echo("</select>");
 
                         $result3 = $conn->query("SELECT * FROM autorzy");
-
+                        $result5 = $conn->query("SELECT * FROM autorzy");
                        
                         echo("<select name='autorzy'>");
                         while($row=$result3->fetch_assoc() ){
@@ -102,6 +103,29 @@
                         echo("</select>");
                         echo("<br>");
                         echo("<input type='submit' value='Dodaj'>");
+                        echo("</form>");
+
+                     
+                        echo("<h2>Delete Tytuł:</h2>");
+                        echo("<form action='deltytul.php' method='POST'>");
+                        echo("<select name='idtytul'>");
+                        while($row=$result4->fetch_assoc() ){
+                            echo("<option value='".$row['id_tytul']."'>".$row['tytul']."</option>");
+                        }
+                        echo("</select>");
+
+                        echo("<input type='submit' value='Usuń'>");
+                        echo("</form>");
+
+                        echo("<h2>Delete Autor:</h2>");
+                        echo("<form action='delautor.php' method='POST'>");
+                        echo("<select name='idautor'>");
+                        while($row=$result5->fetch_assoc() ){
+                            echo("<option value='".$row['id_autor']."'>".$row['imie']." ".$row['nazwisko']."</option>");
+                        }
+                        echo("</select>");
+
+                        echo("<input type='submit' value='Usuń'>");
                         echo("</form>");
                     ?>
 
